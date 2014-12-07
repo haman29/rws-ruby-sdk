@@ -13,14 +13,17 @@ describe RWS::Books::Genre do
       :booksGenreId => genre_id
     }
   end
+  let(:json) do
+    fixture('books/genre_search.json')
+  end
   let(:expected_json) do
-    JSON.parse(fixture('books/genre_search.json'))
+    JSON.parse(json)
   end
 
   before do
     @expected_request = stub_request(:get, endpoint).
       with(:query => expected_query).
-      to_return(:body => expected_json)
+      to_return(:body => json)
 
     RakutenWebService.configuration do |c|
       c.affiliate_id = affiliate_id
